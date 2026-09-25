@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>SKINCARE PLAN</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f7f9fc;
+  --card: #ffffff;
+  --ink: #1f2933;
+  --muted: #5f6b7a;
+  --line: #e3e8ef;
+  --accent: #e0607e;
+  --accent-soft: #fde8ee;
+  --retinal: #d9822b;   --retinal-bg: #fff3e3;
+  --repair: #2f9e74;    --repair-bg: #e3f6ee;
+  --pore: #3b7dd8;      --pore-bg: #e6f0fd;
+  --clay: #0e9aa7;      --clay-bg: #e0f5f6;
+  --hydrate: #8b5cf6;   --hydrate-bg: #f1ebff;
+  --peel: #e0607e;      --peel-bg: #fde8ee;
+  --ok: #2f9e74; --warn: #c7761f; --no: #d64545;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang HK", "PingFang TC", "Hiragino Sans", sans-serif;
+  font-size: 16px; line-height: 1.6;
+  padding-bottom: 24px;
+}
+header { padding: calc(20px + env(safe-area-inset-top)) 16px 8px; }
+header h1 { margin: 0; font-size: 26px; letter-spacing: .5px; }
+header p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+
+nav.tabs {
+  position: sticky; top: 0; z-index: 10; background: var(--bg);
+  display: flex; gap: 6px; padding: 10px 16px; overflow-x: auto; scrollbar-width: none;
+  border-bottom: 1px solid var(--line);
+}
+nav.tabs::-webkit-scrollbar { display: none; }
+nav.tabs button {
+  flex: 0 0 auto; border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  border-radius: 999px; padding: 8px 14px; font-size: 15px; font-family: inherit;
+}
+nav.tabs button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+main { padding: 0 16px; }
+section.page { display: none; }
+section.page.on { display: block; }
+h2 { font-size: 20px; margin: 22px 0 10px; }
+h3 { font-size: 17px; margin: 0 0 6px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px; margin-bottom: 12px; }
+.muted { color: var(--muted); font-size: 14px; }
+
+.seg { display: flex; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 3px; margin: 14px 0 4px; }
+.seg button { flex: 1; border: 0; background: transparent; color: var(--ink); padding: 9px 4px; border-radius: 9px; font-size: 15px; font-family: inherit; }
+.seg button.on { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+ol.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+ol.steps li { position: relative; padding: 10px 0 10px 40px; border-top: 1px solid var(--line); counter-increment: s; }
+ol.steps li:first-child { border-top: 0; }
+ol.steps li::before {
+  content: counter(s); position: absolute; left: 0; top: 11px; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+ol.steps li.wait::before { content: "⏱"; background: transparent; }
+.p { font-weight: 700; }
+.how { display: block; color: var(--muted); font-size: 14px; margin-top: 2px; }
+.alt { display: inline-block; font-size: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 0 6px; margin-left: 4px; color: var(--muted); font-weight: 400; }
+
+.days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin: 12px 0; }
+.days button {
+  border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 12px;
+  padding: 6px 0 7px; font-family: inherit; font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 3px;
+}
+.days button .dot { width: 8px; height: 8px; border-radius: 50%; }
+.days button.on { outline: 2px solid var(--accent); outline-offset: -2px; font-weight: 700; }
+
+.night-head { border-radius: 14px; padding: 12px 14px; margin-bottom: 12px; }
+.night-head h3 { margin: 0; }
+.night-head p { margin: 4px 0 0; font-size: 14px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+
+.tip { border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 12px 12px 0; padding: 10px 12px; font-size: 14px; margin: 10px 0; }
+
+.prod { padding: 12px 0; border-top: 1px solid var(--line); }
+.prod:first-of-type { border-top: 0; padding-top: 4px; }
+.prod .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.tag { flex: 0 0 auto; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+.tag.ok { color: var(--ok); background: var(--repair-bg); }
+.tag.warn { color: var(--warn); background: var(--retinal-bg); }
+.tag.season { color: var(--hydrate); background: var(--hydrate-bg); }
+.tag.sos { color: var(--no); background: var(--peel-bg); }
+.prod .ing { font-size: 13px; color: var(--muted); margin: 2px 0 4px; }
+.prod p { margin: 0; font-size: 14px; }
+
+table.order { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.order td { padding: 8px 4px; border-top: 1px solid var(--line); vertical-align: top; }
+table.order tr:first-child td { border-top: 0; }
+table.order td:first-child { color: var(--muted); white-space: nowrap; width: 1%; padding-right: 10px; }
+
+ul.clean { margin: 0; padding-left: 20px; }
+ul.clean li { margin: 4px 0; font-size: 15px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>SKINCARE PLAN</h1>
+  <p>敏感混合肌 · 東京氣候 · 早晚程序</p>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-page="am" class="on">☀️ 早上</button>
+  <button data-page="pm">🌙 夜晚</button>
+  <button data-page="review">🔍 成份審視</button>
+  <button data-page="notes">📌 注意事項</button>
+</nav>
+
+<main>
+  <div class="seg" id="season">
+    <button data-s="aw" class="on">🍂 秋冬（10–4 月）</button>
+    <button data-s="ss">🌿 春夏（5–9 月）</button>
+  </div>
+
+  <!-- 早上 -->
+  <section class="page on" id="page-am">
+    <h2>早上程序</h2>
+    <div class="card"><ol class="steps" id="am-steps"></ol></div>
+    <div class="tip" id="am-tip"></div>
+  </section>
+
+  <!-- 夜晚 -->
+  <section class="page" id="page-pm">
+    <h2>夜晚程序</h2>
+    <p class="muted" style="margin:0 0 4px">用緊 A 醛第幾個星期：</p>
+    <div class="seg" id="phase" style="margin-top:6px">
+      <button data-ph="1" class="on">第 1–4 週</button>
+      <button data-ph="2">第 5–8 週</button>
+      <button data-ph="3">第 9 週起</button>
+    </div>
+    <div class="days" id="days"></div>
+    <div class="legend" id="legend"></div>
+    <div style="height:12px"></div>
+    <div class="night-head" id="night-head"></div>
+    <div class="card"><ol class="steps" id="pm-steps"></ol></div>
+    <div class="tip" id="pm-tip"></div>
+  </section>
+
+  <!-- 成份審視 -->
+  <section class="page" id="page-review">
+    <h2>成份審視</h2>
+    <p class="muted">
+      <span class="tag ok">✓ 啱用</span>
+      <span class="tag warn">⚠ 小心用</span>
+      <span class="tag season">季節</span>
+      <span class="tag sos">SOS</span>
+      <br>以包裝成份表為準。
+    </p>
+    <div id="review"></div>
+  </section>
+
+  <!-- 注意事項 -->
+  <section class="page" id="page-notes">
+    <h2>開封次序</h2>
+    <div class="card">
+      <table class="order">
+        <tr><td>而家開</td><td><b>年糕洗面</b>（A醛黃色去紋霜夜用）</td></tr>
+        <tr><td>用完即換</td><td>ORBIS 卸妝油 → <b>Anua 卸妝油</b><br>Vitamin C Toner → <b>Anua Toner</b><br>ALLIE 防曬 → <b>SKIN 1004 防曬</b><br>BIORE 洗面 → <b>綠蕃茄洗面</b></td></tr>
+        <tr><td>面霜排隊</td><td>早上：Anua 100+ Cream<br>A醛黃色去紋霜夜、保濕夜：TOUN28 Cream<br>其他夜晚：Dr. Rujugene Cream<br>兩樣晚霜邊樣先用完，就開 <b>AESTURA cream</b> 頂上</td></tr>
+        <tr><td>留到春夏</td><td><b>銀色CREAM</b>、<b>綠蕃茄精華</b>、Anua 面膜</td></tr>
+        <tr><td>SOS 先用</td><td>AESTURA 降紅面膜（得 5 片）</td></tr>
+      </table>
+    </div>
+    <div class="tip">新產品先喺下巴側邊試 2–3 日。</div>
+
+    <h2>🚨 泛紅／刺痛／甩皮 SOS</h2>
+    <div class="card">
+      <p style="margin:0 0 8px">泛紅刺痛就停 3–5 日：<b>黃色去紋霜、Ordinary 甘醇酸、Cetaphil 洗面、Vitamin C Toner、Ordinary 白色小瓶</b>。</p>
+      <ol class="steps">
+        <li><span class="p">清水</span><span class="how">卸妝油沖乾淨就得</span></li>
+        <li><span class="p">Toner：跳過</span><span class="how">Vitamin C Toner 暫停</span></li>
+        <li><span class="p">AESTURA 降紅面膜</span><span class="alt">或 mediheal 積雪草面膜</span><span class="how">10–15 分鐘，唔好敷到乾</span></li>
+        <li><span class="p">Anua 100+ 精華</span></li>
+        <li><span class="p">TOUN28 Cream</span><span class="alt">用完轉 AESTURA cream</span><span class="how">搽厚少少</span></li>
+      </ol>
+      <p class="muted" style="margin:8px 0 0">穩定後由上一個階段再開始。</p>
+    </div>
+
+    <h2>黑頭點算？</h2>
+    <div class="card">
+      <p style="margin:0 0 8px">鼻頭黑頭大多係氧化嘅皮脂，清完 1–3 星期會再出，要日日控制。</p>
+      <ul class="clean">
+        <li><b>每晚</b>：卸妝油喺鼻頭打圈 1 分鐘。</li>
+        <li><b>每朝</b>：鼻頭點 Ordinary 白色小瓶（控油）。</li>
+        <li><b>每星期 2 次</b>：用 ilso去黑頭水 + BIORE 洗面（控油夜、黑頭護理夜）。</li>
+        <li><b>Cetaphil 洗面</b>：BHA 會入毛孔溶油，用嗰晚泡沫喺鼻停 30 秒。</li>
+        <li><b>黃色去紋霜</b>：長遠會令毛孔細啲。第 5 週開始搽全臉，鼻頭都搽埋（避開鼻翼摺位）。</li>
+      </ul>
+      <p style="margin:10px 0 4px"><b>真係忍唔住嘅「棉花棒法」</b>（只可以喺黑頭水敷完之後做）：</p>
+      <ol class="steps">
+        <li><span class="p">洗乾淨手</span><span class="how">黑頭水敷完、按摩完先做。</span></li>
+        <li><span class="p">兩枝棉花棒</span><span class="how">喺黑頭兩邊輕輕向中間壓。一壓就出嘅先清，壓唔出就唔好理，千祈唔好用手指甲。</span></li>
+        <li><span class="p">最多 2 分鐘</span><span class="how">只做鼻頭。</span></li>
+      </ol>
+    </div>
+
+    <h2>A 醛（黃色去紋霜）守則</h2>
+    <div class="card">
+      <ul class="clean">
+        <li>淨係夜晚用，面要<b>完全乾</b>先搽。</li>
+        <li>避開眼角、鼻翼、嘴角。</li>
+        <li>頭幾個星期少少乾屬正常，<b>持續刺痛或紅腫</b>就轉 SOS。</li>
+        <li>同一晚唔好同 Ordinary 甘醇酸、Cetaphil 洗面一齊用。</li>
+        <li>翌日一定要搽防曬，包埋頸。</li>
+        <li>第 5 週先開始搽頸。</li>
+      </ul>
+    </div>
+
+    <h2>防曬</h2>
+    <div class="card">
+      <ul class="clean">
+        <li>份量：面兩隻手指長度，頸再多一份。</li>
+        <li>出街每 2–3 小時補搽。</li>
+        <li>唔化妝都要搽。</li>
+      </ul>
+    </div>
+
+  </section>
+</main>
+
+<script>
+const state = { page: 'am', season: 'aw', phase: 1, day: (new Date().getDay() + 6) % 7 };
+const DAYS = ['一', '二', '三', '四', '五', '六', '日'];
+
+const TYPES = {
+  retinal: { name: 'A醛黃色去紋霜夜', c: 'retinal', desc: '抗皺主力。' },
+  repair:  { name: '修護夜', c: 'repair',  desc: '清毛孔 + 點紋位。' },
+  clay:    { name: '控油夜', c: 'clay', desc: '黑頭水 + 泥洗面。' },
+  pore:    { name: '黑頭護理夜', c: 'pore', desc: '黑頭水 + 泥洗面 + 面膜。' },
+  hydrate: { name: '保濕夜', c: 'hydrate', desc: '唔用強效成份。' },
+  peel:    { name: '煥膚夜（可選）', c: 'peel', desc: '皮膚穩定先試，唔想用就照修護夜做。' },
+};
+
+// 週一至週日
+const SCHEDULE = {
+  1: ['retinal', 'repair', 'clay', 'retinal', 'repair', 'pore', 'hydrate'],
+  2: ['retinal', 'repair', 'retinal', 'clay', 'retinal', 'pore', 'hydrate'],
+  3: ['retinal', 'clay', 'retinal', 'peel', 'retinal', 'pore', 'hydrate'],
+};
+
+const S = (p, how, alt) => ({ p, how, alt });
+const WAIT = (how) => ({ wait: true, p: '等一等', how });
+
+function amSteps(season) {
+  if (season === 'aw') return [
+    S('清水洗面', '用微暖水沖，毛巾輕輕印乾。'),
+    S('Vitamin C Toner', '只拍 T 字位同額頭。', '用完轉 Anua Toner'),
+    S('Ordinary 白色小瓶', '1–2 滴，只點鼻、鼻樑、T 字位。'),
+    S('Anua 100+ 精華', '1–2 泵，全臉 + 頸。'),
+    S('Anua 100+ Cream', '全臉 + 頸，甩皮位多搽一層。'),
+    S('ALLIE 防曬', '面兩隻手指長度，頸再一份。等 3–5 分鐘先化妝。', '用完轉 SKIN 1004 防曬'),
+    S('化妝', 'dior 粉底 + 眉 + 眼線'),
+  ];
+  return [
+    S('清水洗面', '用微暖水沖，毛巾輕輕印乾。'),
+    S('Vitamin C Toner', '只拍 T 字位同額頭。', '用完轉 Anua Toner'),
+    S('綠蕃茄精華', '全臉。唔好同 Ordinary 白色小瓶疊埋用。', '春夏先開'),
+    S('妝前小黃瓶', '薄薄一層。'),
+    S('ALLIE 防曬', '面兩隻手指長度 + 頸，每 2–3 小時補搽。', '用完轉 SKIN 1004 防曬'),
+    S('化妝', 'dior 粉底 + 眉 + 眼線'),
+  ];
+}
+
+function retinalHow(phase) {
+  if (phase === 1) return '綠豆咁大份量，只搽法令紋同鎖眉紋。';
+  return '豌豆咁大份量，全臉（避開眼角、鼻翼、嘴角）。頸每星期 1–2 晚，另加一粒豌豆份量。';
+}
+
+// 先用晒已開嘅面霜；邊樣先用完，就開 AESTURA cream 頂上
+function nightCream(season, kind) {
+  if (season === 'ss') return kind === 'hydrate'
+    ? S('銀色CREAM', '全臉 + 頸。')
+    : S('Anua 100+ Cream', '全臉 + 頸，薄薄一層。');
+  if (kind === 'retinal' || kind === 'hydrate')
+    return S('TOUN28 Cream', '全臉 + 頸，甩皮位多搽一層。', '用完轉 AESTURA cream');
+  return S('Dr. Rujugene Cream', '全臉 + 頸。', '用完轉 AESTURA cream');
+}
+
+const TONER_PM = S('Vitamin C Toner', '只拍 T 字位同額頭。', '用完轉 Anua Toner');
+const OIL = S('ORBIS 卸妝油', '未淋濕塊面之前，乾手乾面搽 2–3 泵。鼻頭同鼻樑打圈 1 分鐘，加少量水乳化再沖走。', '用完轉 Anua 卸妝油');
+
+function pmSteps(type, season, phase) {
+  switch (type) {
+    case 'retinal': return [
+      OIL,
+      S('年糕洗面', '提子咁大份量。'),
+      S('Toner：今晚跳過', 'Vitamin C Toner 唔好同 A 醛同一晚用。轉咗 Anua Toner 之後就用 Anua Toner。'),
+      S('Anua 100+ 精華', '1–2 泵。'),
+      WAIT('等 5–10 分鐘，塊面完全乾先搽 A 醛。'),
+      S('黃色去紋霜', retinalHow(phase)),
+      nightCream(season, 'retinal'),
+    ];
+    case 'repair': return [
+      OIL,
+      S('Cetaphil 洗面', '泡沫喺 T 字位停 30 秒再沖。'),
+      TONER_PM,
+      S('Anua 100+ 精華', '1–2 泵。'),
+      S('Ordinary 啡色油', '2–3 滴，輕輕按喺法令紋、鎖眉紋、頸紋。'),
+      nightCream(season, 'repair'),
+      S('Elixir 睡眠面膜', '薄薄一層。', '可選'),
+    ];
+    case 'clay': return [
+      OIL,
+      S('ilso去黑頭水', '抹乾鼻頭搽上，洗頭洗身期間等 3–5 分鐘，再打圈按摩。'),
+      S('BIORE 洗面', '只搽 T 字位，打圈 30 秒。', '用完轉 綠蕃茄洗面'),
+      TONER_PM,
+      S('Anua 100+ 精華', '1–2 泵。'),
+      S('Ordinary 啡色油', '2–3 滴，輕輕按喺法令紋、鎖眉紋、頸紋。'),
+      nightCream(season, 'repair'),
+    ];
+    case 'pore': return [
+      OIL,
+      S('ilso去黑頭水', '抹乾鼻頭搽上，洗頭洗身期間等 5 分鐘，再打圈按摩。'),
+      S('BIORE 洗面', '只搽 T 字位，打圈 30 秒。', '用完轉 綠蕃茄洗面'),
+      TONER_PM,
+      season === 'aw'
+        ? S('mediheal 骨膠原面膜', '15–20 分鐘。', '可選')
+        : S('Anua 面膜', '雪櫃凍住用，15–20 分鐘。', '可選'),
+      S('Anua 100+ 精華', '1–2 泵。'),
+      nightCream(season, 'repair'),
+    ];
+    case 'hydrate': return [
+      OIL,
+      S('清水', '有化妝就改用 Cetaphil 洗面。'),
+      TONER_PM,
+      S('mediheal 積雪草面膜', '15–20 分鐘。'),
+      S('Anua 100+ 精華', '1–2 泵。'),
+      nightCream(season, 'hydrate'),
+      S('Elixir 睡眠面膜', '薄薄一層。'),
+    ];
+    case 'peel': return [
+      OIL,
+      S('清水', '唔好用 Cetaphil 洗面。'),
+      S('Ordinary 甘醇酸', '化妝棉沾濕，輕擦鼻、下巴、額頭，避開面頰。刺痛超過 1 分鐘即沖走。'),
+      WAIT('等 10 分鐘。'),
+      S('Anua 100+ 精華', '1–2 泵。'),
+      nightCream(season, 'retinal'),
+    ];
+  }
+}
+
+const TIPS = {
+  am: {
+    aw: '化妝日想底妝貼啲，Anua 100+ Cream 可以改用 妝前小黃瓶。A醛黃色去紋霜夜翌朝 Vitamin C Toner 刺痛就暫停。',
+    ss: '面頰覺得乾，妝前小黃瓶之後加少少 銀色CREAM。',
+  },
+  pm: {
+    retinal: '第 1–4 週：面頰泛紅可以先搽薄 cream 再搽 A 醛。紅腫刺痛就轉 SOS 程序。',
+    repair: '搽 cream 唔好大力拉扯皮膚。',
+    clay: '鼻頭紅或者甩皮，呢晚就改做修護夜。',
+    pore: '忍唔住就用「棉花棒法」（睇「注意事項」），唔好用手指甲擠。',
+    hydrate: '積雪草面膜用完就用 mediheal 骨膠原面膜（秋冬）或 Anua 面膜（春夏）。',
+    peel: '頭 2 次只擦下巴試。',
+  },
+};
+
+// ---------- 成份審視 ----------
+const REVIEW = [
+  { g: '卸妝', items: [
+    ['ORBIS 卸妝油', 'ok', '酯類油為主，無香料、無礦物油', '溫和，濕手都用得。'],
+    ['Anua 卸妝油', 'ok', '植物油（葵花籽油等）+ 魚腥草萃取', '乳化快，溶鼻頭油脂效果好。'],
+  ]},
+  { g: '洗面', items: [
+    ['Cetaphil 洗面', 'warn', '水楊酸（BHA）+ 菸鹼醯胺等', 'BHA 入毛孔溶油，針對黑頭。屬去角質，唔好同 A 醛同一晚用。'],
+    ['BIORE 洗面', 'warn', '泥（クレイ）吸附皮脂，按摩式洗面', '吸油力強，每星期 2 次，只洗 T 字位。'],
+    ['綠蕃茄洗面', 'warn', '泥 + 綠蕃茄萃取，可以當泥膜敷', '同 BIORE 洗面功能一樣，用法一樣。'],
+    ['年糕洗面', 'ok', '米萃取，溫和配方，泡沫細', '只留俾 A醛黃色去紋霜夜用。'],
+  ]},
+  { g: 'TONER', items: [
+    ['Vitamin C Toner', 'warn', '維他命 C（活性型）+ 維他命 E；男士版有清涼感成份同酒精', '提亮。清涼感成份同酒精會刺激泛紅面頰，只拍 T 字位；唔好同 A 醛同一晚用。'],
+    ['Anua Toner', 'ok', '魚腥草萃取 77%，低刺激', '鎮靜、補水，全臉早晚用。'],
+  ]},
+  { g: 'SERUM', items: [
+    ['Anua 100+ 精華', 'ok', 'PDRN + 多種分子透明質酸 + 修護膠囊', '保濕修護，早晚主力精華。'],
+    ['綠蕃茄精華', 'season', '綠蕃茄萃取 + NMN，主打收毛孔、控油', '春夏早上用。同 Ordinary 白色小瓶二揀一。'],
+  ]},
+  { g: '防曬', items: [
+    ['ALLIE 防曬', 'ok', '化學防曬 SPF50+ PA++++，防水抗汗，含酒精', '防曬力強。'],
+    ['SKIN 1004 防曬', 'ok', '新一代化學濾光劑 + 積雪草 + 透明質酸，精華質地', '輕薄，敏感肌友好，全年用得。'],
+  ]},
+  { g: 'CREAM', items: [
+    ['Anua 100+ Cream', 'ok', 'PDRN + 透明質酸，啫喱乳霜', '質地輕，早上用唔搓泥。'],
+    ['AESTURA cream', 'ok', '積雪草（A-Cica）+ 泛醇等，皮膚科品牌', '針對泛紅同屏障受損，好啱配 A 醛。'],
+    ['TOUN28 Cream', 'ok', '胜肽 + 積雪草，較滋潤', '修護兼抗老，溫和。'],
+    ['Dr. Rujugene Cream', 'ok', 'PDRN 20,100ppm + 腺苷（Adenosine）+ 菸鹼醯胺', '修護、保濕、淡紋。冇 A 醇，同黃色去紋霜唔會撞。'],
+    ['銀色CREAM', 'season', '角鯊烷 + 保濕成份，清爽水感', '留返春夏用。'],
+  ]},
+  { g: '其他', items: [
+    ['黃色去紋霜', 'warn', 'A 醛（Retinal）', '有實證嘅抗皺成份，比 A 醇快見效。只可以夜晚用，要慢慢加頻率。'],
+    ['Ordinary 白色小瓶', 'warn', '菸鹼醯胺 10% + 鋅 1%', '控油收毛孔。10% 對敏感肌可能刺激，只點 T 字位。'],
+    ['Ordinary 甘醇酸', 'warn', '甘醇酸 7%（AHA）', '面頰易紅甩皮，唔係首選。第 9 週後先試，每星期一次，避開面頰。擦腋下照用。'],
+    ['Ordinary 啡色油', 'ok', 'Volufiline（知母萃取）+ Pal-Isoleucine 胜肽', '幫凹陷位變飽滿，效果溫和。'],
+    ['妝前小黃瓶', 'ok', '舒緩屏障嘅輕乳液', '化妝日同春夏早上打底。'],
+    ['ilso去黑頭水', 'warn', '軟化角栓（毛孔入面嘅皮脂）嘅液體', '每星期 2 次，只用喺鼻。'],
+  ]},
+  { g: '面膜', items: [
+    ['Elixir 睡眠面膜', 'ok', '資生堂 balancing 系列，平衡水油', '適合混合肌。'],
+    ['mediheal 骨膠原面膜', 'season', '保濕為主', '秋冬用。'],
+    ['Anua 面膜', 'season', '魚腥草，鎮靜', '春夏用。'],
+    ['mediheal 積雪草面膜', 'ok', '積雪草苷（Madecassoside），鎮靜泛紅', '保濕夜用，面紅時亦可以隨時加敷。'],
+    ['AESTURA 降紅面膜', 'sos', '積雪草，pH4.5 弱酸性', '得 5 片，留返 SOS 用。'],
+  ]},
+];
+
+const TAGTXT = { ok: '✓ 啱用', warn: '⚠ 小心用', season: '季節', sos: 'SOS' };
+
+function renderReview() {
+  document.getElementById('review').innerHTML = REVIEW.map(g => `
+    <h3 style="margin:18px 0 8px">${g.g}</h3>
+    <div class="card">${g.items.map(([n, t, ing, txt]) => `
+      <div class="prod">
+        <div class="top"><span class="p">${n}</span><span class="tag ${t}">${TAGTXT[t]}</span></div>
+        <div class="ing">${ing}</div>
+        <p>${txt}</p>
+      </div>`).join('')}
+    </div>`).join('');
+}
+
+// ---------- render ----------
+function stepsHTML(list) {
+  return list.map(s => `<li class="${s.wait ? 'wait' : ''}"><span class="p">${s.p}</span>${s.alt ? `<span class="alt">${s.alt}</span>` : ''}<span class="how">${s.how}</span></li>`).join('');
+}
+
+function render() {
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.page === state.page));
+  document.querySelectorAll('section.page').forEach(s => s.classList.toggle('on', s.id === 'page-' + state.page));
+  document.querySelectorAll('#season button').forEach(b => b.classList.toggle('on', b.dataset.s === state.season));
+  document.querySelectorAll('#phase button').forEach(b => b.classList.toggle('on', +b.dataset.ph === state.phase));
+  document.getElementById('season').style.display = state.page === 'review' || state.page === 'notes' ? 'none' : 'flex';
+
+  document.getElementById('am-steps').innerHTML = stepsHTML(amSteps(state.season));
+  document.getElementById('am-tip').textContent = TIPS.am[state.season];
+
+  const sched = SCHEDULE[state.phase];
+  document.getElementById('days').innerHTML = DAYS.map((d, i) => `
+    <button data-d="${i}" class="${i === state.day ? 'on' : ''}">週${d}<span class="dot" style="background:var(--${TYPES[sched[i]].c})"></span></button>`).join('');
+  const used = [...new Set(sched)];
+  document.getElementById('legend').innerHTML = used.map(t => `<span><i style="background:var(--${TYPES[t].c})"></i>${TYPES[t].name}</span>`).join('');
+
+  const t = sched[state.day];
+  const T = TYPES[t];
+  const head = document.getElementById('night-head');
+  head.style.background = `var(--${T.c}-bg)`;
+  head.innerHTML = `<h3 style="color:var(--${T.c})">週${DAYS[state.day]} · ${T.name}</h3><p>${T.desc}</p>`;
+  document.getElementById('pm-steps').innerHTML = stepsHTML(pmSteps(t, state.season, state.phase));
+  document.getElementById('pm-tip').textContent = TIPS.pm[t];
+
+  try { localStorage.setItem('skin-state', JSON.stringify({ season: state.season, phase: state.phase })); } catch (e) {}
+}
+
+document.getElementById('tabs').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  state.page = b.dataset.page; render(); window.scrollTo({ top: 0 });
+});
+document.getElementById('season').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (b) { state.season = b.dataset.s; render(); }
+});
+document.getElementById('phase').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (b) { state.phase = +b.dataset.ph; render(); }
+});
+document.getElementById('days').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (b) { state.day = +b.dataset.d; render(); }
+});
+
+// 預設季節：5–9 月春夏，其餘秋冬
+const m = new Date().getMonth() + 1;
+state.season = m >= 5 && m <= 9 ? 'ss' : 'aw';
+try {
+  const saved = JSON.parse(localStorage.getItem('skin-state') || 'null');
+  if (saved) { state.season = saved.season || state.season; state.phase = saved.phase || 1; }
+} catch (e) {}
+
+renderReview();
+render();
+</script>
+
+</body>
+</html>
