@@ -195,7 +195,7 @@ ul.clean li { margin: 4px 0; font-size: 15px; }
     <div class="card">
       <table class="order">
         <tr><td>而家開</td><td><b>年糕洗面</b>（A醛黃色去紋霜夜用）</td></tr>
-        <tr><td>用完即換</td><td>ORBIS 卸妝油 → <b>Anua 卸妝油</b><br>Vitamin C Toner → <b>Anua Toner</b><br>ALLIE 防曬 → <b>SKIN 1004 防曬</b><br>酵素洗顏粉 → BIORE 洗面 → <b>綠蕃茄洗面</b><br>KOSE小八 MASK → mediheal 積雪草面膜</td></tr>
+        <tr><td>用完即換</td><td>ORBIS 卸妝油 → <b>Anua 卸妝油</b><br>ALLIE 防曬 → <b>SKIN 1004 防曬</b><br>酵素洗顏粉 → BIORE 洗面 → <b>綠蕃茄洗面</b><br>KOSE小八 MASK → mediheal 積雪草面膜</td></tr>
         <tr><td>面霜排隊</td><td>早上：Anua 100+ Cream<br>A醛黃色去紋霜夜、保濕夜：TOUN28 Cream<br>其他夜晚：Dr. Rujugene Cream<br>兩樣晚霜邊樣先用完，就開 <b>AESTURA cream</b> 頂上</td></tr>
         <tr><td>留到春夏</td><td><b>銀色CREAM</b>、<b>綠蕃茄精華</b>、Anua 面膜</td></tr>
         <tr><td>SOS 先用</td><td>AESTURA 降紅面膜（得 5 片）</td></tr>
@@ -205,10 +205,10 @@ ul.clean li { margin: 4px 0; font-size: 15px; }
 
     <h2><svg class="icon" viewBox="0 0 24 24" style="color:var(--no)"><path d="M12 3.5 21 19.5H3Z"/><line x1="12" y1="9.5" x2="12" y2="13.5" stroke-linecap="round"/><circle cx="12" cy="16.5" r="0.6" fill="currentColor" stroke="none"/></svg>泛紅／刺痛／甩皮 SOS</h2>
     <div class="card">
-      <p style="margin:0 0 8px">泛紅刺痛就停 3–5 日：<b>黃色去紋霜、Ordinary 甘醇酸、Cetaphil 洗面、Vitamin C Toner、Ordinary 白色小瓶</b>。</p>
+      <p style="margin:0 0 8px">泛紅刺痛就停 3–5 日：<b>黃色去紋霜、Ordinary 甘醇酸、Cetaphil 洗面、Ordinary 白色小瓶</b>。</p>
       <ol class="steps">
         <li><span class="p">清水</span><span class="how">卸妝油沖乾淨就得</span></li>
-        <li><span class="p">Toner：跳過</span><span class="how">Vitamin C Toner 暫停</span></li>
+        <li><span class="p">Anua Toner</span><span class="how">全臉輕輕拍，鎮靜補水。</span></li>
         <li><span class="p">AESTURA 降紅面膜</span><span class="alt">或 mediheal 積雪草面膜</span><span class="how">10–15 分鐘，唔好敷到乾</span></li>
         <li><span class="p">Anua 100+ 精華</span></li>
         <li><span class="p">TOUN28 Cream</span><span class="alt">用完轉 AESTURA cream</span><span class="how">搽厚少少</span></li>
@@ -319,8 +319,7 @@ const WAIT = (how) => ({ wait: true, p: '等一等', how });
 function amSteps(season) {
   if (season === 'aw') return [
     S('清水洗面', '用微暖水沖，毛巾輕輕印乾。'),
-    MUJI_PAD,
-    S('Vitamin C Toner', '只拍 T 字位同額頭。', '用完轉 Anua Toner'),
+    S('Anua Toner', '全臉輕輕拍，鎮靜補水。'),
     S('Ordinary 白色小瓶', '1–2 滴，只點鼻、鼻樑、T 字位。'),
     S('Anua 100+ 精華', '1–2 泵，全臉 + 頸。'),
     S('Anua 100+ Cream', '全臉 + 頸，甩皮位多搽一層。'),
@@ -329,8 +328,7 @@ function amSteps(season) {
   ];
   return [
     S('清水洗面', '用微暖水沖，毛巾輕輕印乾。'),
-    MUJI_PAD,
-    S('Vitamin C Toner', '只拍 T 字位同額頭。', '用完轉 Anua Toner'),
+    S('Anua Toner', '全臉輕輕拍，鎮靜補水。'),
     S('綠蕃茄精華', '全臉。唔好同 Ordinary 白色小瓶疊埋用。', '春夏先開'),
     S('妝前小黃瓶', '薄薄一層。'),
     S('ALLIE 防曬', '面兩隻手指長度 + 頸，每 2–3 小時補搽。', '用完轉 SKIN 1004 防曬'),
@@ -353,9 +351,8 @@ function nightCream(season, kind) {
   return S('Dr. Rujugene Cream', '全臉 + 頸。', '用完轉 AESTURA cream');
 }
 
-const TONER_PM = S('Vitamin C Toner', '只拍 T 字位同額頭。', '用完轉 Anua Toner');
+const TONER_PM = S('Anua Toner', '全臉輕輕拍，鎮靜補水。');
 const OIL = S('ORBIS 卸妝油', '未淋濕塊面之前，乾手乾面搽 2–3 泵。鼻頭同鼻樑打圈 1 分鐘，加少量水乳化再沖走。', '用完轉 Anua 卸妝油');
-const MUJI_PAD = S('MUJI 導入棉片', '一面印走多餘油脂，反轉另一面輕輕拍入面。', '');
 const ENZYME_WASH = S('酵素洗顏粉', '一次一粒，加水喺手心搓開起泡，泡洗全面 30 秒再沖清水。', '用完轉 BIORE 洗面');
 
 function pmSteps(type, season, phase) {
@@ -363,8 +360,7 @@ function pmSteps(type, season, phase) {
     case 'retinal': return [
       OIL,
       S('年糕洗面', '提子咁大份量。'),
-      MUJI_PAD,
-      S('Toner：今晚跳過', 'Vitamin C Toner 唔好同 A 醛同一晚用。轉咗 Anua Toner 之後就用 Anua Toner。'),
+      TONER_PM,
       S('Anua 100+ 精華', '1–2 泵。'),
       WAIT('等 5–10 分鐘，塊面完全乾先搽 A 醛。'),
       S('黃色去紋霜', retinalHow(phase)),
@@ -373,7 +369,6 @@ function pmSteps(type, season, phase) {
     case 'repair': return [
       OIL,
       S('Cetaphil 洗面', '泡沫喺 T 字位停 30 秒再沖。'),
-      MUJI_PAD,
       TONER_PM,
       S('KOSE素肌 MASK', '敷 3 分鐘，即棄，唔使沖水。'),
       S('Anua 100+ 精華', '1–2 泵。'),
@@ -385,7 +380,6 @@ function pmSteps(type, season, phase) {
       OIL,
       S('ilso去黑頭水', '抹乾鼻頭搽上，洗頭洗身期間等 3–5 分鐘，再打圈按摩。'),
       ENZYME_WASH,
-      MUJI_PAD,
       TONER_PM,
       S('Anua 100+ 精華', '1–2 泵。'),
       S('Ordinary 啡色油', '2–3 滴，輕輕按喺法令紋、鎖眉紋、頸紋。'),
@@ -395,7 +389,6 @@ function pmSteps(type, season, phase) {
       OIL,
       S('ilso去黑頭水', '抹乾鼻頭搽上，洗頭洗身期間等 5 分鐘，再打圈按摩。'),
       ENZYME_WASH,
-      MUJI_PAD,
       TONER_PM,
       season === 'aw'
         ? S('mediheal 骨膠原面膜', '15–20 分鐘。', '可選')
@@ -406,7 +399,6 @@ function pmSteps(type, season, phase) {
     case 'hydrate': return [
       OIL,
       S('清水', '有化妝就改用 Cetaphil 洗面。'),
-      MUJI_PAD,
       TONER_PM,
       S('KOSE小八 MASK', '敷 5–7 分鐘。', '或 mediheal 積雪草面膜'),
       S('Anua 100+ 精華', '1–2 泵。'),
@@ -416,7 +408,6 @@ function pmSteps(type, season, phase) {
     case 'peel': return [
       OIL,
       S('清水', '唔好用 Cetaphil 洗面。'),
-      MUJI_PAD,
       S('Ordinary 甘醇酸', '化妝棉沾濕，輕擦鼻、下巴、額頭，避開面頰。刺痛超過 1 分鐘即沖走。'),
       WAIT('等 10 分鐘。'),
       S('Anua 100+ 精華', '1–2 泵。'),
@@ -427,7 +418,7 @@ function pmSteps(type, season, phase) {
 
 const TIPS = {
   am: {
-    aw: '化妝日想底妝貼啲，Anua 100+ Cream 可以改用 妝前小黃瓶。A醛黃色去紋霜夜翌朝 Vitamin C Toner 刺痛就暫停。',
+    aw: '化妝日想底妝貼啲，Anua 100+ Cream 可以改用 妝前小黃瓶。',
     ss: '面頰覺得乾，妝前小黃瓶之後加少少 銀色CREAM。',
   },
   pm: {
@@ -454,8 +445,6 @@ const REVIEW = [
     ['年糕洗面', 'ok', '米萃取，溫和配方，泡沫細', '只留俾 A醛黃色去紋霜夜用。'],
   ]},
   { g: 'TONER', items: [
-    ['MUJI 導入棉片', 'ok', '米糠發酵萃取 + 神經酰胺，弱酸性，無酒精香料', '潔面之後、Toner 之前用，一面印走多餘油脂，一面拍入做導入，溫和可以早晚日日用。'],
-    ['Vitamin C Toner', 'warn', '維他命 C（活性型）+ 維他命 E；男士版有清涼感成份同酒精', '提亮。清涼感成份同酒精會刺激泛紅面頰，只拍 T 字位；唔好同 A 醛同一晚用。'],
     ['Anua Toner', 'ok', '魚腥草萃取 77%，低刺激', '鎮靜、補水，全臉早晚用。'],
   ]},
   { g: 'SERUM', items: [
